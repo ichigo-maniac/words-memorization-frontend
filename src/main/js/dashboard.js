@@ -1,7 +1,6 @@
 'use strict';
 
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from "react";
 
 class Dashboard extends React.Component{
     render() {
@@ -25,3 +24,5 @@ class Dashboard extends React.Component{
         )
     }
 }
+
+export default Dashboard;

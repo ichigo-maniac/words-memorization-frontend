@@ -1,7 +1,6 @@
 'use strict';
 
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from "react";
 
 class Toolbar extends React.Component{
 	render() {
@@ -18,3 +17,5 @@ class Toolbar extends React.Component{
 		)
 	}
 }
+
+export default Toolbar;

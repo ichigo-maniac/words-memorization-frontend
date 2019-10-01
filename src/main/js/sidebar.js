@@ -1,7 +1,6 @@
 'use strict';
 
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from "react";
 
 class Sidebar extends React.Component{
     render() {
@@ -84,3 +83,5 @@ class Sidebar extends React.Component{
         )
     }
 }
+
+export default Sidebar;
