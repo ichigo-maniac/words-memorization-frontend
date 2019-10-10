@@ -5,124 +5,156 @@ import React from "react";
 /**
  * Sidebar component's class
  */
-class Sidebar extends React.Component{
+class Sidebar extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {activeLink: null};
+        /** Bind listeners */
+        this.handleItemClick = this.handleItemClick.bind(this);
+    }
+
+    handleItemClick(linkItemId) {
+        this.setState({activeLink: linkItemId});
+    }
 
     render() {
 
+        const activeLink = this.state.activeLink;
+
+        /** Kanji items */
+        let kanjiItems = [
+            {id: "kanji_all", name: "All", active: false},
+            {id: "kanji_n5", name: "N5", active: false},
+            {id: "kanji_n4", name: "N4", active: false},
+            {id: "kanji_n3", name: "N3", active: false},
+            {id: "kanji_n2", name: "N2", active: false},
+            {id: "kanji_n1", name: "N1", active: false}
+        ];
+        kanjiItems.forEach(function (sidebarItem) {
+            sidebarItem.active = activeLink == sidebarItem.id;
+        });
+
+        /** Words items */
+        let wordsItems = [
+            {id: "words_all", name: "All", active: false},
+            {id: "words_n5", name: "N5", active: false},
+            {id: "words_n4", name: "N4", active: false},
+            {id: "words_n3", name: "N3", active: false},
+            {id: "words_n2", name: "N2", active: false},
+            {id: "words_n1", name: "N1", active: false}
+        ];
+        wordsItems.forEach(function (sidebarItem) {
+            sidebarItem.active = activeLink == sidebarItem.id;
+        });
+
+        /** Map sidebar items */
+        let kanjiSidebarItems = kanjiItems.map((item) =>
+            <SidebarItem id={item.id} active={item.active} key={item.id} name={item.name}
+                         onItemClick={this.handleItemClick}/>
+        );
+        let wordsSidebarItems = wordsItems.map((item) =>
+            <SidebarItem id={item.id} active={item.active} key={item.id} name={item.name}
+                         onItemClick={this.handleItemClick}/>
+        );
+
         /** Rendering */
         return (
-
             <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-                <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                    <div className="sidebar-brand-icon rotate-n-15">
-                        <i className="fas fa-laugh-wink"></i>
-                    </div>
-                    <div className="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-                </a>
-
-
+                <SidebarHeader title="Words memorization"/>
                 <hr className="sidebar-divider my-0"/>
+                <SidebarItem id="dashboard" key="dashboard" name="Dashboard" single={true}
+                             active={activeLink == 'dashboard'} onItemClick={this.handleItemClick}/>
 
+                <SidebarDivider title="Learning"/>
+                <SidebarGroup id="kanjiSidebarGroup" name="Kanji" sidebarItems={kanjiSidebarItems}/>
+                <SidebarGroup id="wordsSidebarGroup" name="Words" sidebarItems={wordsSidebarItems}/>
 
-
-                <li className="nav-item active">
-                    <a className="nav-link" href="index.html">
-                        <i className="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard</span></a>
-                </li>
-
-
-                <hr className="sidebar-divider"/>
-
-
-                <div className="sidebar-heading">
-                    Interface
-                </div>
-
-
-                <li className="nav-item">
-                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                       aria-expanded="true" aria-controls="collapseTwo">
-                        <i className="fas fa-fw fa-cog"></i>
-                        <span>Components</span>
-                    </a>
-                    <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div className="bg-white py-2 collapse-inner rounded">
-                            <h6 className="collapse-header">Custom Components:</h6>
-                            <a className="collapse-item" href="buttons.html">Buttons</a>
-                            <a className="collapse-item" href="cards.html">Cards</a>
-                        </div>
-                    </div>
-                </li>
-
-
-                <li className="nav-item">
-                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                       aria-expanded="true" aria-controls="collapseUtilities">
-                        <i className="fas fa-fw fa-wrench"></i>
-                        <span>Utilities</span>
-                    </a>
-                    <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities"
-                         data-parent="#accordionSidebar">
-                        <div className="bg-white py-2 collapse-inner rounded">
-                            <h6 className="collapse-header">Custom Utilities:</h6>
-                            <a className="collapse-item" href="utilities-color.html">Colors</a>
-                            <a className="collapse-item" href="utilities-border.html">Borders</a>
-                            <a className="collapse-item" href="utilities-animation.html">Animations</a>
-                            <a className="collapse-item" href="utilities-other.html">Other</a>
-                        </div>
-                    </div>
-                </li>
-
-
-                <hr className="sidebar-divider"/>
-
-
-                <div className="sidebar-heading">
-                    Addons
-                </div>
-
-
-
-                <li className="nav-item">
-                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                       aria-expanded="true" aria-controls="collapsePages">
-                        <i className="fas fa-fw fa-folder"></i>
-                        <span>Pages</span>
-                    </a>
-                    <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                        <div className="bg-white py-2 collapse-inner rounded">
-                            <h6 className="collapse-header">Login Screens:</h6>
-                            <a className="collapse-item" href="login.html">Login</a>
-                            <a className="collapse-item" href="register.html">Register</a>
-                            <a className="collapse-item" href="forgot-password.html">Forgot Password</a>
-                            <div className="collapse-divider"></div>
-                            <h6 className="collapse-header">Other Pages:</h6>
-                            <a className="collapse-item" href="404.html">404 Page</a>
-                            <a className="collapse-item" href="blank.html">Blank Page</a>
-                        </div>
-                    </div>
-                </li>
-
-
-                <li className="nav-item">
-                    <a className="nav-link" href="charts.html">
-                        <i className="fas fa-fw fa-chart-area"></i>
-                        <span>Charts</span></a>
-                </li>
-
-
-                <li className="nav-item">
-                    <a className="nav-link" href="tables.html">
-                        <i className="fas fa-fw fa-table"></i>
-                        <span>Tables</span></a>
-                </li>
+                <SidebarItem id="phrases" key="phrases" name="Phrases" single={true}
+                             active={activeLink == 'phrases'} onItemClick={this.handleItemClick}/>
 
             </ul>
         )
     }
 }
 
+class SidebarHeader extends React.Component {
+
+    render() {
+        return (
+            <a className="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                <div className="sidebar-brand-icon rotate-n-15">
+                    <i className="fas fa-laugh-wink"></i>
+                </div>
+                <div className="sidebar-brand-text mx-3">{this.props.title}</div>
+            </a>
+        )
+    }
+}
+
+class SidebarDivider extends React.Component {
+
+    render() {
+        return (
+            <div>
+                <hr className="sidebar-divider"/>
+                <div className="sidebar-heading">{this.props.title}</div>
+            </div>
+        )
+    }
+}
+
+class SidebarGroup extends React.Component {
+
+    render() {
+        return (
+            <li className="nav-item">
+                <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target={"#" + this.props.id}
+                   aria-expanded="true" aria-controls={this.props.id}>
+                    <i className="fas fa-fw fa-wrench"></i>
+                    <span>{this.props.name}</span>
+                </a>
+                <div id={this.props.id} className="collapse" aria-labelledby="headingUtilities"
+                     data-parent="#accordionSidebar">
+                    <div className="bg-white py-2 collapse-inner rounded">
+                        {this.props.sidebarItems}
+                    </div>
+                </div>
+            </li>
+        )
+    }
+
+}
+
+class SidebarItem extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        this.props.onItemClick(this.props.id);
+    }
+
+    render() {
+        return (
+            this.props.single == true ? (
+                <li className={this.props.active == true ? ("nav-item active") : ("nav-item")}>
+                    <a className="nav-link" href="#" onClick={this.handleClick}>
+                        <i className="fas fa-fw fa-chart-area"></i>
+                        <span>{this.props.name}</span>
+                    </a>
+                </li>
+            ) : (
+                <li className="nav-item">
+                    <a className={this.props.active == true ? ("collapse-item active") : ("collapse-item")} href="#" onClick={this.handleClick}>
+                        <span>{this.props.name}</span>
+                    </a>
+                </li>
+            )
+        )
+    }
+}
 
 export default Sidebar;
