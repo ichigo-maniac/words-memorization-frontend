@@ -7,77 +7,122 @@ import React from "react";
  */
 class Sidebar extends React.Component{
 
-    constructor(props) {
-        super(props);
-        this.state = {activeLink : null};
-        /** Bind listeners */
-        this.handleItemClick = this.handleItemClick.bind(this);
-    }
-
-    handleItemClick(linkItemId) {
-        this.setState({activeLink : linkItemId});
-    }
-
     render() {
-        /** Create link items */
-        let linkItems = [
-            {id : "dashboard_link_item", name : "Dashboard", active : false},
-            {id : "orders_link_item", name : "Orders", active : false},
-            {id : "products_link_item", name : "Products", active : false}
-        ];
-
-        const activeLink = this.state.activeLink;
-        linkItems.forEach(function(linkItem) {
-            linkItem.active = activeLink == linkItem.id;
-        });
-
-        /** Map link items */
-        let linkItemsView = linkItems.map((linkItem) =>
-            <SidebarLinkItem id={linkItem.id} active={linkItem.active} key={linkItem.id} name={linkItem.name} onItemClick={this.handleItemClick}/>
-        );
 
         /** Rendering */
         return (
-            <nav className="col-md-2 d-none d-md-block bg-light sidebar">
-                <div className="sidebar-sticky">
-                    <ul className="nav flex-column">
-                        {linkItemsView}
-                    </ul>
+
+            <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+                <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <div className="sidebar-brand-icon rotate-n-15">
+                        <i className="fas fa-laugh-wink"></i>
+                    </div>
+                    <div className="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                </a>
+
+
+                <hr className="sidebar-divider my-0"/>
+
+
+
+                <li className="nav-item active">
+                    <a className="nav-link" href="index.html">
+                        <i className="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                </li>
+
+
+                <hr className="sidebar-divider"/>
+
+
+                <div className="sidebar-heading">
+                    Interface
                 </div>
-            </nav>
+
+
+                <li className="nav-item">
+                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                       aria-expanded="true" aria-controls="collapseTwo">
+                        <i className="fas fa-fw fa-cog"></i>
+                        <span>Components</span>
+                    </a>
+                    <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div className="bg-white py-2 collapse-inner rounded">
+                            <h6 className="collapse-header">Custom Components:</h6>
+                            <a className="collapse-item" href="buttons.html">Buttons</a>
+                            <a className="collapse-item" href="cards.html">Cards</a>
+                        </div>
+                    </div>
+                </li>
+
+
+                <li className="nav-item">
+                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                       aria-expanded="true" aria-controls="collapseUtilities">
+                        <i className="fas fa-fw fa-wrench"></i>
+                        <span>Utilities</span>
+                    </a>
+                    <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities"
+                         data-parent="#accordionSidebar">
+                        <div className="bg-white py-2 collapse-inner rounded">
+                            <h6 className="collapse-header">Custom Utilities:</h6>
+                            <a className="collapse-item" href="utilities-color.html">Colors</a>
+                            <a className="collapse-item" href="utilities-border.html">Borders</a>
+                            <a className="collapse-item" href="utilities-animation.html">Animations</a>
+                            <a className="collapse-item" href="utilities-other.html">Other</a>
+                        </div>
+                    </div>
+                </li>
+
+
+                <hr className="sidebar-divider"/>
+
+
+                <div className="sidebar-heading">
+                    Addons
+                </div>
+
+
+
+                <li className="nav-item">
+                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                       aria-expanded="true" aria-controls="collapsePages">
+                        <i className="fas fa-fw fa-folder"></i>
+                        <span>Pages</span>
+                    </a>
+                    <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div className="bg-white py-2 collapse-inner rounded">
+                            <h6 className="collapse-header">Login Screens:</h6>
+                            <a className="collapse-item" href="login.html">Login</a>
+                            <a className="collapse-item" href="register.html">Register</a>
+                            <a className="collapse-item" href="forgot-password.html">Forgot Password</a>
+                            <div className="collapse-divider"></div>
+                            <h6 className="collapse-header">Other Pages:</h6>
+                            <a className="collapse-item" href="404.html">404 Page</a>
+                            <a className="collapse-item" href="blank.html">Blank Page</a>
+                        </div>
+                    </div>
+                </li>
+
+
+                <li className="nav-item">
+                    <a className="nav-link" href="charts.html">
+                        <i className="fas fa-fw fa-chart-area"></i>
+                        <span>Charts</span></a>
+                </li>
+
+
+                <li className="nav-item">
+                    <a className="nav-link" href="tables.html">
+                        <i className="fas fa-fw fa-table"></i>
+                        <span>Tables</span></a>
+                </li>
+
+            </ul>
         )
     }
 }
 
-/**
- * Sidebar link item's class
- */
-class SidebarLinkItem extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        this.props.onItemClick(this.props.id);
-    }
-
-    render() {
-        return(
-            <li className="nav-item">
-                {this.props.active == true ? (
-                    <a className="nav-link active" href="#" onClick={this.handleClick}>
-                        {this.props.name}
-                    </a>
-                ): (
-                    <a className="nav-link" href="#" onClick={this.handleClick}>
-                        {this.props.name}
-                    </a>
-                )}
-            </li>
-        )
-    }
-}
 
 export default Sidebar;
