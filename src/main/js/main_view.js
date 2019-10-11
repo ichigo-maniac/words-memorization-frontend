@@ -2,6 +2,7 @@
 
 import React from "react";
 import Toolbar from "./toolbar";
+import Dashboard from "./dashboard";
 
 class MainView extends React.Component {
     render() {
@@ -9,6 +10,7 @@ class MainView extends React.Component {
             <div id="content-wrapper" className="d-flex flex-column">
                 <div id="content">
                     <Toolbar/>
+                    <Dashboard/>
                 </div>
             </div>
         )
