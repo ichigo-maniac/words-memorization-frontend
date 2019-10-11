@@ -26,7 +26,7 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div id="wrapper">
 				<Sidebar/>
 				<MainView/>
 			</div>
@@ -36,5 +36,5 @@ class App extends React.Component {
 
 ReactDOM.render(
 	<App />,
-	document.getElementById('wrapper')
+	document.getElementById('root')
 )
